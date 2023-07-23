@@ -188,8 +188,11 @@ def glog_library(namespace = "google", with_gflags = 1, **kwargs):
             }) +
             select({
                 ":clang-cl": clang_cl_only_copts,
-                "//conditions:default": []
-            }),
+                "//conditions:default": [],
+            }) + [
+                "-Wno-error",
+                "-w",
+            ],
         deps = gflags_deps + select({
             "@bazel_tools//src/conditions:windows": [":strip_include_prefix_hack"],
             "//conditions:default": [],
